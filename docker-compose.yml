@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    build: 
+     context: .
+     dockerfile: Dockerfile.mongodb
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: itaminul2
+      MONGO_INITDB_ROOT_PASSWORD: itaminul2
+
+  nestjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nestjs-app
+    restart: always
+    ports:
+      - '8001:8001'
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb+srv://itaminul2:itaminul2@erp-api.8fcd1ip.mongodb.net/

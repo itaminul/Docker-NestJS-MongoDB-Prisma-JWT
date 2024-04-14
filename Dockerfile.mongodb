@@ -1,0 +1,5 @@
+# Use the official MongoDB 4.x image
+FROM mongo:4.4
+
+# Expose the default MongoDB port
+EXPOSE 27017
