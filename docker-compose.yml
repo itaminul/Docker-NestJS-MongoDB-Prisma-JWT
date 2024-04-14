@@ -12,12 +12,12 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: itaminul2
       MONGO_INITDB_ROOT_PASSWORD: itaminul2
-  shadow-db:
-    image: mongo:4.4
-    container_name: shadow-db
-    restart: always
-    ports:
-      - '27018:27017'
+  # shadow-db:
+  #   image: mongo:4.4
+  #   container_name: shadow-db
+  #   restart: always
+  #   ports:
+  #     - '27018:27017'
 
   nestjs-app:
     build:
@@ -34,11 +34,11 @@ services:
       # MONGO_URI: mongodb+srv://itaminul2:itaminul2@erp-api.8fcd1ip.mongodb.net/
       # SHADOW_DB_URI: mongodb+srv://itaminul2:itaminul2@shadow-erp-api.8fcd1ip.mongodb.net/
 
-  prisma:
-    build:
-      context: .
-      dockerfile: Dockerfile.prisma
-    container_name: prisma
-    restart: always
-    depends_on:
-      - mongodb
+  # prisma:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.prisma
+  #   container_name: prisma
+  #   restart: always
+  #   depends_on:
+  #     - mongodb
