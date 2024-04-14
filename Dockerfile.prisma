@@ -1,0 +1,14 @@
+# Use Node.js 14 as base image
+FROM node:16
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Install Prisma globally
+RUN npm install -g prisma
+
+# Copy Prisma schema and migrations
+COPY ./prisma ./prisma
+
+# Generate Prisma client
+RUN prisma generate
