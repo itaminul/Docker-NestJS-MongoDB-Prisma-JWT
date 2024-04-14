@@ -30,8 +30,9 @@ services:
     depends_on:
       - mongodb
     environment:
-      MONGO_URI: mongodb+srv://itaminul2:itaminul2@erp-api.8fcd1ip.mongodb.net/
-      SHADOW_DB_URI: mongodb+srv://itaminul2:itaminul2@shadow-erp-api.8fcd1ip.mongodb.net/
+      MONGO_URI: mongodb://itaminul2:itaminul2@localhost:27017/erp-api?retryWrites=true&w=majority&authSource=admin
+      # MONGO_URI: mongodb+srv://itaminul2:itaminul2@erp-api.8fcd1ip.mongodb.net/
+      # SHADOW_DB_URI: mongodb+srv://itaminul2:itaminul2@shadow-erp-api.8fcd1ip.mongodb.net/
 
   prisma:
     build:
