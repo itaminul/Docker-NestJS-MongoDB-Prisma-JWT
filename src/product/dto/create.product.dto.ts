@@ -1,0 +1,51 @@
+import { Injectable } from "@nestjs/common";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+
+@Injectable()
+export class CreateProductDto {
+  @IsString()
+  @IsOptional()
+  itemCode;
+  @IsString()
+  @IsOptional()
+  modelNo;
+  @IsString()
+  @IsOptional()
+  itemGroupId;
+  @IsString()
+  @IsNotEmpty()
+  itemName;
+  @IsString()
+  @IsOptional()
+  itemDescription;
+  @IsString()
+  @IsOptional()
+  measurementtId;
+  @IsNumber()
+  @IsOptional()
+  costPrice;
+  @IsNumber()
+  @IsOptional()
+  salePrice;
+  @IsNumber()
+  @IsString()
+  manufactureDate;
+  @IsNumber()
+  @IsString()
+  expireDate;
+  @IsNumber()
+  @IsOptional()
+  taxRate;
+  @IsNumber()
+  @IsOptional()
+  reorderLabel;
+  @IsNumber()
+  @IsOptional()
+  supplierId;
+  @IsString()
+  @IsOptional()
+  itemImage;
+  @IsNumber()
+  @IsOptional()
+  remarks;
+}
