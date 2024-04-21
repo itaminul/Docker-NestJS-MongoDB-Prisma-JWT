@@ -1,7 +1,7 @@
 import { Cache } from "@nestjs/cache-manager";
 import { Inject, Injectable } from "@nestjs/common";
-import { MongoPrismaService } from "src/database/mongo-prisma.service";
-import { PostgresPrismaService } from "src/database/postgres.prisma.service";
+import { MongoPrismaService } from "../database/mongo-prisma.service";
+import { PostgresPrismaService } from "../database/postgres.prisma.service";
 
 @Injectable()
 export class ProductService {
@@ -13,7 +13,7 @@ export class ProductService {
 
   
   async getAll() {
-    let items = await this.postgreService.invItemSetup.findMany();
+    let items = await this.mongodbService.invItemSetup.findMany();
     if(items && items.length > 0) {
       await this.cacheManager.set('items', items);
       return await this.cacheManager.get('itmes');
