@@ -19,6 +19,10 @@ describe("ProductController", () => {
 
     controller = module.get<ProductController>(ProductController);
   });
+  
+  it("create", () => {
+
+  })
 
   it("should be defined", () => {
     expect(controller).toBeDefined();
