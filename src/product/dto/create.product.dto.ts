@@ -1,51 +1,60 @@
 import { Injectable } from "@nestjs/common";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from "class-validator";
 
 @Injectable()
 export class CreateProductDto {
-  @IsString()
+  @IsString({ message: "Item code must me a string" })
   @IsOptional()
   itemCode;
-  @IsString()
+  @IsString({ message: "Item name must me a string" })
   @IsOptional()
   modelNo;
-  @IsString()
+  @IsString({ message: "Item group must me a string" })
   @IsOptional()
   itemGroupId;
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: "Item name must me a string" })
+  @IsNotEmpty({ message: "Item name should not be empty" })
   itemName;
-  @IsString()
+  @IsString({ message: "Item description must me a string" })
   @IsOptional()
   itemDescription;
-  @IsString()
+  @IsString({ message: "Measurement must me a string" })
   @IsOptional()
   measurementtId;
-  @IsNumber()
+  @IsNumber({}, { message: "Cost price must be a number" })
   @IsOptional()
   costPrice;
-  @IsNumber()
+  @IsNumber({}, { message: "Sale price must be a number" })
   @IsOptional()
   salePrice;
-  @IsNumber()
+  @IsNumber({}, { message: "Manufacturer date must be a number" })
   @IsString()
   manufactureDate;
-  @IsNumber()
+  @IsNumber({}, { message: "Expire date must be a number" })
   @IsString()
   expireDate;
-  @IsNumber()
+  @IsNumber({}, { message: "Taxe price must be a number" })
   @IsOptional()
   taxRate;
-  @IsNumber()
+  @IsNumber({}, { message: "Reorder label must be a number" })
   @IsOptional()
   reorderLabel;
-  @IsNumber()
+  @IsNumber({}, { message: "Supplier must be a number" })
   @IsOptional()
   supplierId;
   @IsString()
   @IsOptional()
   itemImage;
-  @IsNumber()
+  @IsString({ message: "Remarks must me a string" })
   @IsOptional()
   remarks;
+  @IsNumber({}, { message: "Organization must be a number" })
+  @IsOptional()
+  orgId;
 }
