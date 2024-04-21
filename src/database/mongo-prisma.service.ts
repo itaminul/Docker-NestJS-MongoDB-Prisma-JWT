@@ -1,50 +1,23 @@
-import {
-  Injectable,
-  OnModuleInit,
-  OnModuleDestroy,
-  Logger,
-} from '@nestjs/common';
-import { PrismaClient as MongoPrismaClient } from '@prisma/client';
-
+import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
+import { PrismaClient } from "@prisma/client";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
-export class MongoPrismaService
-  extends MongoPrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
-  private readonly logger = new Logger(MongoPrismaService.name);
-
-
-
-  async onModuleInit() {
-    let retries = 5;
-
-    while (retries > 0) {
-
-      try {
-        await this.$connect();
-
-        this.logger.log('Successfully connected to mongo database');
-
-        break;
-
-      } catch (err) {
-        this.logger.error(err);
-
-        this.logger.error(
-          `there was an error connecting to database, retrying .... (${retries})`,
-        );
-
-        retries -= 1;
-
-        await new Promise((res) => setTimeout(res, 3_000)); // wait for three seconds
-      }
-    }
+export class PrismaService extends PrismaClient implements OnModuleInit {
+  raw(arg0: string) {
+    throw new Error("Method not implemented.");
   }
-
-
-
-  async onModuleDestroy() {
-    await this.$disconnect();
+  constructor(configService: ConfigService) {
+    super({
+      datasources: {
+        db: {
+          url: configService.get("DATABASE_URL"),
+        },
+      },
+    });
+    console.log("db url : " + configService.get("DATABASE_URL"));
+  }
+  async onModuleInit() {
+    await this.$connect();
   }
 }

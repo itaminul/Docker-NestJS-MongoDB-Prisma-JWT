@@ -33,11 +33,11 @@ export class CreateProductDto {
   @IsNumber({}, { message: "Sale price must be a number" })
   @IsOptional()
   salePrice;
-  @IsNumber({}, { message: "Manufacturer date must be a number" })
-  @IsString()
+  @IsOptional()
+  @IsString({ message: "Manufacturer date must be a number" })
   manufactureDate;
-  @IsNumber({}, { message: "Expire date must be a number" })
-  @IsString()
+  @IsOptional()
+  @IsString({ message: "Expire date must be a number" })
   expireDate;
   @IsNumber({}, { message: "Taxe price must be a number" })
   @IsOptional()
