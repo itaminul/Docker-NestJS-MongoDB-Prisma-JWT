@@ -2,8 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { ProductController } from "./product.controller";
 import { ProductService } from "./product.service";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
-import { MongoPrismaService } from "../database/mongo-prisma.service";
-import { PostgresPrismaService } from "../database/postgres.prisma.service";
+import { PrismaService } from "../database/mongo-prisma.service";
 const MockPrismaService = {};
 describe("ProductController", () => {
   let controller: ProductController;
@@ -13,8 +12,7 @@ describe("ProductController", () => {
       controllers: [ProductController],
       providers: [
         ProductService,
-        { provide: MongoPrismaService, useValue: MockPrismaService },
-        { provide: PostgresPrismaService, useValue: MockPrismaService },
+        { provide: PrismaService, useValue: MockPrismaService },
         { provide: CACHE_MANAGER, useValue: {} },
       ],
     }).compile();

@@ -5,10 +5,10 @@ import { ProductModule } from "./product/product.module";
 import { DatabaseModule } from "./database/database.module";
 import { ProductController } from "./product/product.controller";
 import { ProductService } from "./product/product.service";
-import { PostgresPrismaService } from "./database/postgres.prisma.service";
-import { MongoPrismaService } from "./database/mongo-prisma.service";
 import { CacheModule } from "@nestjs/cache-manager";
 import { redisStore } from "cache-manager-redis-yet";
+import { PrismaService } from "src/database/mongo-prisma.service";
+import { ConfigModule } from "@nestjs/config";
 @Module({
   imports: [
     CacheModule.registerAsync({
@@ -22,6 +22,9 @@ import { redisStore } from "cache-manager-redis-yet";
         }),
       }),
     }),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     DatabaseModule,
     ProductModule,
   ],
@@ -29,8 +32,7 @@ import { redisStore } from "cache-manager-redis-yet";
   providers: [
     AppService,
     ProductService,
-    PostgresPrismaService,
-    MongoPrismaService,
+    PrismaService,
   ],
 })
 export class AppModule {}

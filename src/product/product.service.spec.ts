@@ -1,8 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { ProductService } from "./product.service";
-import { MongoPrismaService } from "../database/mongo-prisma.service";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
-import { PostgresPrismaService } from "../database/postgres.prisma.service";
+import { PrismaService } from "../database/mongo-prisma.service";
 const MockPrismaService = {};
 describe("ProductService", () => {
   let service: ProductService;
@@ -11,8 +10,7 @@ describe("ProductService", () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProductService,
-        { provide: MongoPrismaService, useValue: MockPrismaService },
-        { provide: PostgresPrismaService, useValue: MockPrismaService },
+        { provide: PrismaService, useValue: MockPrismaService },
         {
           provide: CACHE_MANAGER,
           useValue: {},
