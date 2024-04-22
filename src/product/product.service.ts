@@ -7,11 +7,11 @@ import { PrismaService } from "../database/mongo-prisma.service";
 export class ProductService {
   constructor(
     @Inject("CACHE_MANAGER") private cacheManager: Cache,
-    private readonly mongodbService: PrismaService
+    private readonly prismaService: PrismaService
   ) {}
 
   async getAll() {
-    let items = await this.mongodbService.invItemSetup.findMany();
+    let items = await this.prismaService.invItemSetup.findMany();
     if (items && items.length > 0) {
       await this.cacheManager.set("items", items);
       return await this.cacheManager.get("itmes");
@@ -39,7 +39,7 @@ export class ProductService {
       reorderLabel,
       remarks,
     } = dto;
-    let result = await this.mongodbService.invItemSetup.create({
+    let result = await this.prismaService.invItemSetup.create({
       data: {
         itemName,
         itemCode,
