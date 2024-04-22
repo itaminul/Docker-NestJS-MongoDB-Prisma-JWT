@@ -1,6 +1,15 @@
-import { Body, Controller, Get, HttpStatus, Post } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create.product.dto";
+import { UpdateProductDto } from "./dto/update.product.dto";
 
 @Controller("product")
 export class ProductController {
@@ -24,6 +33,19 @@ export class ProductController {
   async create(@Body() dto: CreateProductDto) {
     try {
       const results = await this.productService.create(dto);
+      return {
+        success: true,
+        status: HttpStatus.OK,
+        results,
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  }
+  @Patch(":id")
+  async update(@Param("id") id: string, @Body() dto: UpdateProductDto) {
+    try {
+      const results = await this.productService.update(id, dto);
       return {
         success: true,
         status: HttpStatus.OK,
