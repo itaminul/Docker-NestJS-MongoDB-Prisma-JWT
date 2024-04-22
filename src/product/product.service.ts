@@ -1,7 +1,8 @@
 import { Cache } from "@nestjs/cache-manager";
-import { Body, Inject, Injectable } from "@nestjs/common";
+import { Body, Inject, Injectable, Param } from "@nestjs/common";
 import { CreateProductDto } from "./dto/create.product.dto";
 import { PrismaService } from "../database/mongo-prisma.service";
+import { UpdateProductDto } from "./dto/update.product.dto";
 
 @Injectable()
 export class ProductService {
@@ -57,6 +58,53 @@ export class ProductService {
         taxRate,
         reorderLabel,
         remarks,
+      },
+    });
+    return result;
+  }
+
+  async update(@Param("id") id: string, @Body() dto: UpdateProductDto) {
+    const {
+      itemName,
+      itemCode,
+      itemDescription,
+      itemGroupId,
+      itemImage,
+      orgId,
+      salePrice,
+      supplierId,
+      costPrice,
+      expireDate,
+      manufactureDate,
+      measurementtId,
+      modelNo,
+      taxRate,
+      reorderLabel,
+      remarks,
+      activeStatus,
+    } = dto;
+    let result = await this.prismaService.invItemSetup.update({
+      where: {
+        id: id,
+      },
+      data: {
+        itemName,
+        itemCode,
+        itemDescription,
+        itemGroupId,
+        itemImage,
+        orgId,
+        salePrice,
+        supplierId,
+        costPrice,
+        expireDate,
+        manufactureDate,
+        measurementtId,
+        modelNo,
+        taxRate,
+        reorderLabel,
+        remarks,
+        activeStatus,
       },
     });
     return result;
