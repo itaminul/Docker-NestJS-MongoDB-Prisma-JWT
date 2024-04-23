@@ -3,10 +3,12 @@ import { ProductService } from "./product.service";
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
 import { PrismaService } from "../database/mongo-prisma.service";
 import { CreateProductDto } from "./dto/create.product.dto";
+import { UpdateProductDto } from "./dto/update.product.dto";
 
 const MockPrismaService = {
   invItemSetup: {
     create: jest.fn(), // Mock the create method
+    update: jest.fn(),
   },
 };
 
@@ -43,6 +45,23 @@ describe("ProductService", () => {
     expect(result).toEqual(expectedResult);
     expect(MockPrismaService.invItemSetup.create).toHaveBeenCalledWith({
       data: expect.objectContaining(expectedResult),
+    });
+  });
+  it("update", async () => {
+    const updateProductDto = new UpdateProductDto();
+    const productId = "1";
+    const expectedResult = {
+      id: productId,
+      ...updateProductDto,
+    };
+    jest
+      .spyOn(MockPrismaService.invItemSetup, "update")
+      .mockReturnValue(expectedResult);
+    const result = await service.update(productId, updateProductDto);
+    expect(result).toEqual(expectedResult);
+    expect(MockPrismaService.invItemSetup.update).toHaveBeenCalledWith({
+      where: { id: productId }, 
+      data: expect.objectContaining(updateProductDto),
     });
   });
 });
