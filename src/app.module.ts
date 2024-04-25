@@ -10,6 +10,7 @@ import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from './auth/auth.module';
 import { AuthController } from "./auth/auth.controller";
 import { AuthService } from "./auth/auth.service";
+import { JwtService } from "@nestjs/jwt";
 @Module({
   imports: [
     CacheModule.registerAsync({
@@ -34,7 +35,11 @@ import { AuthService } from "./auth/auth.service";
   providers: [
     ProductService,
     PrismaService,
-    AuthService
+    AuthService,
+    JwtService
   ],
 })
 export class AppModule {}
+
+
+//https://dev.to/algodame/implementing-sms-enabled-two-factor-authentication-using-nestjs-twilio-and-prisma-52p
