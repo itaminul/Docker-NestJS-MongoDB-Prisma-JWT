@@ -7,6 +7,9 @@ import { CacheModule } from "@nestjs/cache-manager";
 import { redisStore } from "cache-manager-redis-yet";
 import { PrismaService } from "src/database/mongo-prisma.service";
 import { ConfigModule } from "@nestjs/config";
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from "./auth/auth.controller";
+import { AuthService } from "./auth/auth.service";
 @Module({
   imports: [
     CacheModule.registerAsync({
@@ -25,11 +28,13 @@ import { ConfigModule } from "@nestjs/config";
     }),
     DatabaseModule,
     ProductModule,
+    AuthModule,
   ],
-  controllers: [ProductController],
+  controllers: [ProductController, AuthController],
   providers: [
     ProductService,
     PrismaService,
+    AuthService
   ],
 })
 export class AppModule {}
