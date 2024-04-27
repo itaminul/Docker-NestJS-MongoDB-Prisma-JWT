@@ -36,12 +36,12 @@ export class AuthService {
     if (!user.twoFA) {
       const payload = {
         email: user.email,
-        first_name: user.phoneNumber,
+        phoneNumber: user.phoneNumber,
         sub: user.id,
       };
       return {
         success: true,
-        access_token: await this.jwtService.signAsync(payload),
+        access_token: this.jwtService.sign(payload, { secret: process.env.JWT_SECRET }),
       };
     }
   }
