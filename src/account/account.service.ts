@@ -3,12 +3,11 @@ import { Request } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hashPassword } from '../common/utils/passwordHasher';
 import _ from 'underscore';
+import { generateOTP } from '../common/utils/codeGenerator';
 import { Prisma } from '@prisma/client';
-// import { getExpiry, isTokenExpired } from '../common/utils/dateTimeUtility';
+import { getExpiry, isTokenExpired } from '../common/utils/dateTimeUtility';
 import { sendSMS } from '../common/utils/twilio';
 import { PrismaService } from 'src/database/mongo-prisma.service';
-import { generateOTP } from 'src/common/utils/codeGenerator';
-import { getExpiry, isTokenExpired } from 'src/common/utils/dateTimeUtility';
 
 @Injectable()
 export class AccountService {
@@ -52,7 +51,7 @@ export class AccountService {
         data: otpPayload,
       });
       await sendSMS(
-        user.mobileNumber,
+        user.phoneNumber,
         `Use this code ${otp} to disable multifactor authentication on your account`,
       );
       return { success: true };
@@ -89,7 +88,7 @@ export class AccountService {
       data: otpPayload,
     });
     await sendSMS(
-      user.mobileNumber,
+      user.phoneNumber,
       `Use this code ${otp} to verify the phone number registered on your account`,
     );
     return { success: true };

@@ -8,7 +8,7 @@ import { PrismaService } from 'src/database/mongo-prisma.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, PrismaService],
+  providers: [PrismaService, AuthService],
   imports: [
     DatabaseModule,
     JwtModule.register({
