@@ -4,10 +4,11 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { constants } from 'src/common/utils/constants';
 import { DatabaseModule } from 'src/database/database.module';
+import { PrismaService } from 'src/database/mongo-prisma.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, PrismaService],
   imports: [
     DatabaseModule,
     JwtModule.register({
