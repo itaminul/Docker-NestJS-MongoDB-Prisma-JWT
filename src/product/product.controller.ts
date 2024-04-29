@@ -10,14 +10,19 @@ import {
 import { ProductService } from "./product.service";
 import { CreateProductDto } from "./dto/create.product.dto";
 import { UpdateProductDto } from "./dto/update.product.dto";
+import { EmailService } from "src/service/EmailService";
 
 @Controller("product")
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService, private readonly emailService: EmailService) {}
 
   @Get()
   async getAll() {
     try {
+      let to = "aminul@atilimited.net";
+      let subject = "aa";
+      let text = "awefawdfg";
+      const mail = await this.emailService.sendEmail(to, subject, text);
       const results = await this.productService.getAll();
       return {
         message: "Show Successfully",
