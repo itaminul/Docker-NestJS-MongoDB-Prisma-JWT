@@ -67,6 +67,7 @@ export class AccountService {
 
   async verifyPhone(req: Request) {
     const userDetails = req['user'];
+    console.log("userDetails", userDetails);
     const user = await this.prisma.user.findUnique({
       where: { id: userDetails.sub },
     });
@@ -83,7 +84,6 @@ export class AccountService {
       useCase: 'PHV',
       expiresAt: getExpiry(),
     };
-
     await this.prisma.otp.create({
       data: otpPayload,
     });
