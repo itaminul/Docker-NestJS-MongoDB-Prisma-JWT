@@ -20,8 +20,8 @@ export class ProductController {
   async getAll() {
     try {
       let to = "aminul@atilimited.net";
-      let subject = "aa";
-      let text = "awefawdfg";
+      let subject = "For test";
+      let text = "Tesging email";
       const mail = await this.emailService.sendEmail(to, subject, text);
       const results = await this.productService.getAll();
       return {
