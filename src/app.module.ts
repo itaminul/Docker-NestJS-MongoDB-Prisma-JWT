@@ -13,6 +13,10 @@ import { AuthService } from "./auth/auth.service";
 import { JwtService } from "@nestjs/jwt";
 import { LoggerMiddleware } from "./common/utils/logger";
 import { AccountModule } from "./account/account.module";
+import { ScheduleModule } from "@nestjs/schedule";
+import { TasksService } from "./service/TaskService";
+import { NotificationService } from "./service/NotificationService";
+import { EmailService } from "./service/EmailService";
 @Module({
   imports: [
     CacheModule.registerAsync({
@@ -29,18 +33,25 @@ import { AccountModule } from "./account/account.module";
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     DatabaseModule,
     ProductModule,
     AuthModule,
-    AccountModule
+    AccountModule,
   ],
   controllers: [ProductController, AuthController],
-  providers: [PrismaService, ProductService, AuthService, JwtService],
+  providers: [
+    PrismaService,
+    ProductService,
+    AuthService,
+    JwtService,
+    TasksService,
+    NotificationService,
+    EmailService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes("*");
   }
 }
-
-
